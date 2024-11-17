@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'InterVar';
+  src: url('/fonts/InterVariable.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'SFMono';
+  src: url('/fonts/SFMono-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px !important;
+  height: 10px !important;
+}
+
+::-webkit-scrollbar-track {
+  background: #1f2937 !important; /* Color for scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #495670 !important;
+  border-radius: 10px !important;
+  border: 2px solid #1f2937 !important;
+}
+
+/* Optional: Hover effect on the thumb */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #55637f !important;
+}
+
+::-webkit-scrollbar-corner { background: #1f2937; }
+
+body {
+  font-family: 'InterVar', monospace;
+  font-weight: 200;
+}
+
+.image-container {
+  position: relative; /* Position for the overlay */
+  overflow: hidden; /* Hide overflow to ensure the overlay fits */
+}
+
+.filter-image {
+  filter: grayscale(100%) sepia(30%);
+  width: 100%; /* Ensures the image fills the container */
+  transition: filter 0.3s ease; /* Smooth transition for the hover effect */
+}
+
+.image-container:hover .filter-image {
+  filter: none; /* Reveal original colors on hover */
+}
+
+.blue-tint {
+  position: absolute; /* Position overlay absolutely */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(144, 142, 223, 0.2); /* Light blue tint */
+  opacity: 1; /* Fully visible tint */
+  transition: opacity 0.5s ease; /* Smooth transition for the hover effect */
+}
+
+.image-container:hover .blue-tint {
+  opacity: 0; /* Hide the tint on hover */
+}
+
+.ui.inverted.segment {
+  border-radius: 0;
+}
+
+@keyframes wave {
+  0% {
+    transform: translateX(0) rotate(0deg) translateY(0);
+  }
+  25% {
+    transform: translateX(-5px) rotate(-15deg) translateY(0);
+  }
+  50% {
+    transform: translateX(5px) rotate(15deg) translateY(0);
+  }
+  75% {
+    transform: translateX(-5px) rotate(-15deg) translateY(0);
+  }
+  100% {
+    transform: translateX(0) rotate(0deg) translateY(0);
+  }
+}
+
+a:hover .animate-wave {
+  animation: wave 0.5s ease-in-out; /* Apply the wave animation on hover */
+}

@@ -1,0 +1,326 @@
+$tree-branch-size: 15px;
+$tree-leaf-spacing: 20px;
+$tree-branch-color: #d4d4d5;
+$tree-dnd-placeholder-width: 4px;
+$tree-item-border-radius: 0.28571429rem;
+
+.container--full-screen {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  .body--full-screen {
+    flex-grow: 1;
+  }
+}
+
+.tree-container {
+  margin-right: 20px;
+  display: inline-block;
+
+  .tree {
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
+
+    &__hierarchy {
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    &__hierarchy::before {
+      content: "";
+      position: absolute;
+      left: $tree-branch-size;
+      top: 0;
+      width: 1px;
+      height: 100%;
+      background-color: $tree-branch-color;
+    }
+    &__hierarchy:first-child::before {
+      transform: translateY(100%);
+      height: 50%;
+    }
+    &__hierarchy:last-child::before {
+      height: calc(50% - 1px);
+    }
+    &__hierarchy:first-child:last-child::before {
+      height: 0;
+    }
+
+    &__item.ui.card {
+      width: auto;
+      margin: 0 0 0 $tree-branch-size * 2;
+      background: none;
+      box-shadow: none;
+      > .content {
+        padding: 0;
+      }
+      .node-card {
+        padding: 0.4em 0.5em;
+        border-radius: 4px;
+        background-color: white;
+
+        .header {
+          font-size: 0.95em;
+          font-weight: 400;
+        }
+        .meta {
+          font-size: 0.8em;
+          font-weight: 400;
+        }
+
+        &.bg-red {
+          background-color: #f08080;
+        }
+        &.bg-yellow {
+          background-color: #ffe94e;
+        }
+        &.bg-green {
+          background-color: #52b788;
+        }
+        &.bg-blue {
+          background-color: #48cae4;
+        }
+      }
+
+      .ui.active.loader:before,
+      .ui.active.loader:after {
+        height: 20px;
+        width: 20px;
+        margin-left: -10px;
+        margin-top: 5px;
+        padding: -5px;
+      }
+
+      &:hover {
+        color: initial;
+        .node-card {
+          box-shadow: 0 2px 6px white;
+        
+          &.bg-red {
+            box-shadow: 0 2px 6px rgba(240, 128, 128, 0.5);
+          }
+          &.bg-yellow {
+            box-shadow: 0 2px 6px rgba(255, 233, 78, 0.5);
+          }
+          &.bg-green {
+            box-shadow: 0 2px 6px rgba(82, 183, 136, 0.5);
+          }
+          &.bg-blue {
+            box-shadow: 0 2px 6px rgba(72, 202, 228, 0.5);
+          }
+        }
+      }
+    }
+    .tree__item.ui.card:hover,
+    .tree__item.tree__item--active.ui.card {
+      transform: none;
+      box-shadow: none;
+
+      .node-card {
+        box-shadow: 0 2px 6px white;
+      
+        &.bg-red {
+          box-shadow: 0 2px 6px rgba(240, 128, 128, 0.5);
+        }
+        &.bg-yellow {
+          box-shadow: 0 2px 6px rgba(255, 233, 78, 0.5);
+        }
+        &.bg-green {
+          box-shadow: 0 2px 6px rgba(82, 183, 136, 0.5);
+        }
+        &.bg-blue {
+          box-shadow: 0 2px 6px rgba(72, 202, 228, 0.5);
+        }
+      }
+    }
+
+    &__leaf.ui.card {
+      display: flex;
+      flex-direction: row;
+      width: max-content;
+
+      .content {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    &__leaf--deleting {
+      opacity: 0.2;
+    }
+    &__leaf--is_relationship.ui.card,
+    &__leaf--is_link.ui.card {
+      background-color: #1f2937;
+      border: 0;
+      box-shadow: none;
+      .node-card {
+        padding: 0.7em;
+        background: none;
+
+        .header {
+          font-size: 0.8em;
+          color: white;
+        }
+        .meta {
+          font-size: 0.8em;
+          color: white;
+        }
+      }
+    }
+    &__leaf--is_link.ui.card {
+      margin-right: -$tree-branch-size;
+      .content {
+        // padding: 0.3em;
+        i {
+          margin: 0;
+          padding: 0;
+        }
+      }
+    }
+    &__leaf--is_link.ui.card::after {
+      display: none;
+    }
+    &__leaf--is_relationship.tree__item--active.ui.card {
+      .content {
+        padding: 0.7em;
+      }
+    }
+    &__leaf::before,
+    &__leaf.tree__leaf--has-children::after,
+    &__root::after {
+      content: "";
+      position: absolute;
+      top: calc(50% - 1px);
+      transform: translateY(-50%);
+      width: $tree-branch-size;
+      height: 0;
+      border-bottom: 1px solid $tree-branch-color;
+      visibility: visible;
+    }
+    &__leaf::before {
+      top: calc(50% - 1px);
+      left: -$tree-branch-size;
+    }
+    &__leaf.tree__leaf--has-children::after,
+    &__root::after {
+      right: -$tree-branch-size;
+    }
+    &__leaf:first-child::before {
+      height: 50%;
+      transform: translateY(-100%);
+    }
+    &__leaf:last-child::before {
+      height: 50%;
+      transform: translateY(0);
+      border-top: 1px solid $tree-branch-color;
+      border-bottom: none;
+    }
+    &__leaf:first-child:last-child::before {
+      height: 0;
+      transform: translateY(-50%);
+      border-top: none;
+      border-bottom: 1px solid $tree-branch-color;
+    }
+
+    .tree__item {
+      .ui.button {
+        background-color: #ccd5ae;
+      }
+      .ui.button.tree__item__bottom_button {
+        padding: 0;
+        margin: 0 -6px -5.5px -7px;
+        font-size: 0.8em;
+        border-radius: 0 0 0 $tree-item-border-radius !important;
+      }
+
+      .ui.button.tree__item__right_button {
+        padding: 0;
+        border-radius: 0 !important;
+        width: 14px;
+        font-size: 0.8em;
+        margin: -0.5px 1px -4px 0;
+      }
+
+      .ui.button.tree__item__right_button:last-child {
+        border-radius: 0 $tree-item-border-radius $tree-item-border-radius 0 !important;
+        margin-right: -1px;
+      }
+    }
+
+    .child-below:hover, .child-below--active {
+      box-shadow: 0 2px 6px white;
+      box-shadow: 0 2px 6px white;
+    }
+
+    &__hierarchy--dragging {
+      opacity: 0.5;
+    }
+    &__hierarchy--dragging::before {
+      opacity: 1;
+    }
+
+    &__leaf__drag_container > div > .tree__hierarchy::before {
+      display: none;
+    }
+    &__leaf__drag_container {
+      opacity: 0.7;
+    }
+
+    &__leaf__drop_area__before.tree__leaf__drop_area,
+    &__leaf__drop_area__after.tree__leaf__drop_area {
+      margin-left: calc($tree-branch-size * 2);
+      height: calc($tree-leaf-spacing / 2);
+    }
+    &__leaf__drop_area__before.tree__leaf__drop_area {
+      &--is_over {
+        border-top: $tree-dnd-placeholder-width solid #db2828;
+      }
+    }
+    &__leaf__drop_area__after.tree__leaf__drop_area {
+      &--is_over {
+        border-bottom: $tree-dnd-placeholder-width solid #db2828;
+      }
+    }
+    &__leaf__drop_area__child.tree__leaf__drop_area {
+      &--is_over {
+        .tree__leaf {
+          border-right: $tree-dnd-placeholder-width solid #db2828;
+        }
+        .ui.button.tree__item__right_button {
+          border-radius: 0 !important;
+        }
+        .tree__leaf.tree__leaf--has-children::after {
+          width: calc($tree-branch-size + $tree-dnd-placeholder-width);
+          right: calc(($tree-branch-size + $tree-dnd-placeholder-width) * -1);
+        }
+      }
+    }
+  }
+}
+
+.footer {
+  margin-top: 70px;
+  text-align: center;
+  color: white;
+  opacity: 0.6;
+  font-size: 12px;
+  font-family: "SFMono";
+
+  p {
+    margin-bottom: 5px;
+  }
+}
+
+.tree-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.tree-container::-webkit-scrollbar-thumb {
+  background: #cce2ff;
+  border-radius: 10px;
+}
+
+.tree-container::-webkit-scrollbar-track {
+  background: #f5f5f5;
+}
