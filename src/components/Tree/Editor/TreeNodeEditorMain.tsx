@@ -5,25 +5,12 @@ import {
 } from "@blocknote/core";
 import { BlockNoteView } from "@blocknote/mantine";
 import {
-  FormattingToolbarController,
-  FormattingToolbar,
-  BlockTypeSelect,
-  blockTypeSelectItems,
-  BlockTypeSelectItem,
-  BasicTextStyleButton,
-  TextAlignButton,
-  ColorStyleButton,
-  NestBlockButton,
-  UnnestBlockButton,
-  CreateLinkButton,
   getDefaultReactSlashMenuItems,
   SuggestionMenuController,
 } from "@blocknote/react";
-import { insertCode } from "@defensestation/blocknote-code";
 import { SkillTreeContext } from "../../../contexts/SkillTreeContext";
 import { useContext, useMemo } from "react";
 import { TreeItem } from "../../../types/skillTree";
-import { RiAlertFill } from "react-icons/ri";
 import { getMultiColumnSlashMenuItems } from "@blocknote/xl-multi-column";
 
 export default function TreeNodeEditorMain({

@@ -12,7 +12,6 @@ import { NodeEditorAlert } from "./NodeEditorAlert";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
-  getMultiColumnSlashMenuItems,
   multiColumnDropCursor,
   locales as multiColumnLocales,
   withMultiColumn,
