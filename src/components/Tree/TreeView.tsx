@@ -39,6 +39,8 @@ import { useTranslation } from "react-i18next";
 import { createTreeNotesTitle } from "../../utils/title";
 import { t } from "i18next";
 import { useParams } from "react-router-dom";
+import { TouchBackend } from "react-dnd-touch-backend";
+import { isMobile } from "react-device-detect";
 
 // Helper Functions
 const populateChildren = (
@@ -377,7 +379,7 @@ export default function TreeView() {
               </div>
             )}
           <Tree>
-            <DndProvider backend={HTML5Backend}>
+            <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
               <TreeLeafDragLayer />
               <TreeRoot />
               <TreeChildren>
