@@ -10,7 +10,7 @@ export default {
   retry: "重试",
   preview: "预览",
   linkOnDrop: "拖放时建立链接",
-  myTreeNotesTitle: "Branchy Notes | 树枝记",
+  myTreeNotesTitle: "BranchyNotes | 树枝记",
   sTreeNotesTitle: "的树枝记",
   title: "标题",
   subtitle: "附标题",
@@ -38,7 +38,7 @@ export default {
   modify: "修改",
   skip: "跳过",
   landing: {
-    title: "Branchy Notes | 树枝记",
+    title: "BranchyNotes | 树枝记",
     buttonMyTreeNotes: "我的树枝记",
     buttonGetTreeNotes: "获取我的树枝记",
     header: "树枝记",

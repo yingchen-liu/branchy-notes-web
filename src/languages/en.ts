@@ -1,6 +1,6 @@
 export default {
-  treeNotes: 'Branchy Notes',
-  myTreeNotes: 'My Branchy Notes',
+  treeNotes: 'BranchyNotes',
+  myTreeNotes: 'My BranchyNotes',
   login: 'Login',
   logout: 'Logout',
   loading: 'Loading...',
@@ -10,8 +10,8 @@ export default {
   retry: 'Retry',
   preview: 'Preview',
   linkOnDrop: 'Link On Drop',
-  myTreeNotesTitle: "Branchy Notes",
-  sTreeNotesTitle: "'s Branchy Notes",
+  myTreeNotesTitle: "BranchyNotes",
+  sTreeNotesTitle: "'s BranchyNotes",
   delete: 'Delete',
   cancel: 'Cancel',
   linkTo: 'Link To',
@@ -38,10 +38,10 @@ export default {
   modify: "modify",
   skip: "Skip",
   landing: {
-    title: "Meet Branchy Notes",
-    buttonMyTreeNotes: "My Branchy Notes",
-    buttonGetTreeNotes: "Get My Branchy Notes!",
-    header: "Branchy Notes",
+    title: "Meet BranchyNotes",
+    buttonMyTreeNotes: "My BranchyNotes",
+    buttonGetTreeNotes: "Get My BranchyNotes!",
+    header: "BranchyNotes",
     subheader: "Organise Your Notes the Smart Way",
     intro: {
       line1: "Say goodbye to clutter and confusion!",
@@ -50,7 +50,7 @@ export default {
     },
     about: {
       text1: "Existing apps often keep information in simple lists or folders. This setup makes it difficult to see relationships between ideas, revisit connected topics, or navigate through notes efficiently.",
-      text2: "Branchy Notes solves this problem by allowing users to map their thoughts visually, connecting related notes and building an intuitive, dynamic structure—like a branching tree."
+      text2: "BranchyNotes solves this problem by allowing users to map their thoughts visually, connecting related notes and building an intuitive, dynamic structure—like a branching tree."
     },
     features: {
       header: "🗝️ Key Features",
@@ -72,7 +72,7 @@ export default {
       }
     },
     whyTreeNotes: {
-      header: "Why Branchy Notes?",
+      header: "Why BranchyNotes?",
       description: "Organise complex ideas easily, boost productivity, and personalise your notes with rich text formatting options. Perfect for students, professionals, and creatives alike."
     }
   },

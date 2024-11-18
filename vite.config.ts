@@ -76,8 +76,8 @@ export default defineConfig({
         ],
       },
       manifest: {
-        name: "Branchy Notes",
-        short_name: "Branchy Notes",
+        name: "BranchyNotes",
+        short_name: "BranchyNotes",
         description: "Organise Your Notes the Smart Way",
         start_url: "/",
         display: "standalone",
