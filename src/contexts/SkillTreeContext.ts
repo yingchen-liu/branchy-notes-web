@@ -15,7 +15,6 @@ const initialState: State = {
   selectedNodeParent: null,
   linkOnDrop: false,
   preview: false,
-  isEditorFocused: false,
 };
 
 export type SkillTreeContextType = {
@@ -34,11 +33,6 @@ export type SkillTreeContextType = {
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
-    case "editor/focus":
-      return {
-        ...state,
-        isEditorFocused: action.isEditorFocused
-      }
     case "title/update":
       return {
         ...state,

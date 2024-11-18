@@ -37,7 +37,6 @@ export type State = {
   selectedNodeParent: null | TreeItem;
   linkOnDrop: boolean;
   preview: boolean;
-  isEditorFocused: boolean;
 };
 
 export type Action =
@@ -47,8 +46,7 @@ export type Action =
   | { type: "linkOnDrop/toggle"; linkOnDrop: boolean }
   | { type: "preview/toggle"; preview: boolean }
   | { type: "title/update"; title: string }
-  | { type: "ownerUser/update"; ownerUser: User }
-  | { type: "editor/focus"; isEditorFocused: boolean };
+  | { type: "ownerUser/update"; ownerUser: User };
 
 export type MoveNodeDTO = {
   uuid: string;
