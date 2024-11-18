@@ -357,7 +357,7 @@ export const fetchRootNode = async (
   language: string
 ): Promise<Record<string, TreeItem>> => {
   const { data } = await axios.get(
-    `${API_BASE_URL}/${userId}/root?language=${language}`,
+    `${API_BASE_URL}/${encodeURIComponent(userId)}/root?language=${language}`,
     createHeader()
   );
   rootUUID = data.uuid;
@@ -372,7 +372,7 @@ export const fetchNodeChildren = async (
   //   setTimeout(resolve, 100000)
   // })
   const { data } = await axios.get(
-    `${API_BASE_URL}/${userId}/${uuid}`,
+    `${API_BASE_URL}/${encodeURIComponent(userId)}/${uuid}`,
     createHeader()
   );
   return data ? parseTree(data, {}) : {};
