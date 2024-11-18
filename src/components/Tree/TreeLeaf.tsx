@@ -312,7 +312,7 @@ function TreeLeaf(props: TreeLeafProps) {
               />
             ) : (
               <DummyTreeLeafDropArea
-                props={{ parent: props.parent, data: node, position: "BEFORE" }}
+                props={{ parent: props.parent, data: node, position: "AFTER" }}
               />
             )}
           </>

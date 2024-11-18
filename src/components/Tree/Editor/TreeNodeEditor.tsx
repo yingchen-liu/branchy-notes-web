@@ -76,43 +76,25 @@ export default function TreeNodeEditor() {
     });
   }, [state.selectedNodeId, dictionary]);
 
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  function handleFocus(): void {
+    dispatch({
+      type: "editor/focus",
+      isEditorFocused: true,
+    });
+  }
 
-  const checkFocus = () => {
-    const container = containerRef.current;
-    if (container) {
-      // Check if any child of the container is focused
-      const focusedElement = document.activeElement;
-      dispatch({
-        type: "editor/focus",
-        isEditorFocused: container.contains(focusedElement),
-      });
-    }
-  };
-
-  useEffect(() => {
-    const handleFocus = () => checkFocus();
-    const handleBlur = () => checkFocus();
-
-    const container = containerRef.current;
-    if (container) {
-      // Add event listeners to check for focus changes
-      container.addEventListener("focusin", handleFocus, true); // focusin bubbles
-      container.addEventListener("focusout", handleBlur, true); // focusout bubbles
-    }
-
-    // Cleanup listeners when the component is unmounted
-    return () => {
-      if (container) {
-        container.removeEventListener("focusin", handleFocus, true);
-        container.removeEventListener("focusout", handleBlur, true);
-      }
-    };
-  }, []);
+  function handleBlur(): void {
+    dispatch({
+      type: "editor/focus",
+      isEditorFocused: false,
+    });
+  }
 
   return (
     <div
-      ref={containerRef}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      tabIndex={0}
       className={`ui segments tree__node_editor__container${
         isFullscreen ? " tree__node_editor__container--fullscreen" : ""
       }`}
