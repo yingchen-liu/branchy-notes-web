@@ -9,11 +9,11 @@ export const login = async (): Promise<CurrentUser> => {
 }
 
 export const getUserById = async (userId: string): Promise<User> => {
-  const res = await axios.get(`${API_BASE_URL}/${userId}`, createHeader())
+  const res = await axios.get(`${API_BASE_URL}/${encodeURIComponent(userId)}`, createHeader())
   return res.data as User
 }
 
 export const updateUser = async (userId: string, user: Partial<User>, language: string): Promise<User> => {
-  const res = await axios.patch(`${API_BASE_URL}/${userId}?language=${language}`, user, createHeader())
+  const res = await axios.patch(`${API_BASE_URL}/${encodeURIComponent(userId)}?language=${language}`, user, createHeader())
   return res.data as User
 }
