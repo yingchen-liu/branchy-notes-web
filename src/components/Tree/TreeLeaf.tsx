@@ -107,7 +107,7 @@ function populateTreeLeafCard(
       }`}
     >
       <div
-        className={`ui card tree__item tree__leaf${
+        className={`ui card hover:cursor-pointer tree__item tree__leaf${
           ((childrenAfter.length && !node.isCollapsing) || node.linkTo) &&
           ((state.preview &&
             childrenAfter.filter((child) => !child.isPrivate).length) ||

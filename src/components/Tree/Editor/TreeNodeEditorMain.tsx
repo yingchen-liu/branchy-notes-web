@@ -1,4 +1,8 @@
-import { BlockNoteEditor, filterSuggestionItems } from "@blocknote/core";
+import {
+  BlockNoteEditor,
+  combineByGroup,
+  filterSuggestionItems,
+} from "@blocknote/core";
 import { BlockNoteView } from "@blocknote/mantine";
 import {
   FormattingToolbarController,
@@ -17,14 +21,15 @@ import {
 } from "@blocknote/react";
 import { insertCode } from "@defensestation/blocknote-code";
 import { SkillTreeContext } from "../../../contexts/SkillTreeContext";
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { TreeItem } from "../../../types/skillTree";
 import { RiAlertFill } from "react-icons/ri";
+import { getMultiColumnSlashMenuItems } from "@blocknote/xl-multi-column";
 
 export default function TreeNodeEditorMain({
   editor,
   node,
-  editable
+  editable,
 }: {
   editor: BlockNoteEditor<any>;
   node: TreeItem;
@@ -37,12 +42,23 @@ export default function TreeNodeEditorMain({
   }
   const { treeData, dispatch } = context;
 
+  const getSlashMenuItems = useMemo(() => {
+    return async (query: string) =>
+      filterSuggestionItems(
+        combineByGroup(
+          getDefaultReactSlashMenuItems(editor),
+          getMultiColumnSlashMenuItems(editor)
+        ),
+        query
+      );
+  }, [editor]);
+
   return (
     <div className="ui segment tree__node_editor__rich_text_editor__container">
       <BlockNoteView
         editable={editable}
         editor={editor}
-        formattingToolbar={false}
+        // formattingToolbar={false}
         slashMenu={false}
         theme="light"
         onChange={() => {
@@ -54,77 +70,9 @@ export default function TreeNodeEditorMain({
           treeData.updateNode(newNode);
         }}
       >
-        <FormattingToolbarController
-          formattingToolbar={() => (
-            <FormattingToolbar>
-              <BlockTypeSelect
-                items={[
-                  ...blockTypeSelectItems(editor.dictionary),
-                  {
-                    name: "Alert",
-                    type: "alert",
-                    icon: RiAlertFill,
-                    isSelected: (block) => block.type === "alert",
-                  } satisfies BlockTypeSelectItem,
-                ]}
-                key={"blockTypeSelect"}
-              />
-
-              <BasicTextStyleButton
-                basicTextStyle={"bold"}
-                key={"boldStyleButton"}
-              />
-              <BasicTextStyleButton
-                basicTextStyle={"italic"}
-                key={"italicStyleButton"}
-              />
-              <BasicTextStyleButton
-                basicTextStyle={"underline"}
-                key={"underlineStyleButton"}
-              />
-              <BasicTextStyleButton
-                basicTextStyle={"strike"}
-                key={"strikeStyleButton"}
-              />
-              {/* Extra button to toggle code styles */}
-              <BasicTextStyleButton
-                key={"codeStyleButton"}
-                basicTextStyle={"code"}
-              />
-
-              <TextAlignButton
-                textAlignment={"left"}
-                key={"textAlignLeftButton"}
-              />
-              <TextAlignButton
-                textAlignment={"center"}
-                key={"textAlignCenterButton"}
-              />
-              <TextAlignButton
-                textAlignment={"right"}
-                key={"textAlignRightButton"}
-              />
-
-              <ColorStyleButton key={"colorStyleButton"} />
-
-              <NestBlockButton key={"nestBlockButton"} />
-              <UnnestBlockButton key={"unnestBlockButton"} />
-
-              <CreateLinkButton key={"createLinkButton"} />
-            </FormattingToolbar>
-          )}
-        />
-        {/* 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore */}
         <SuggestionMenuController
           triggerCharacter={"/"}
-          getItems={async (query: string) =>
-            filterSuggestionItems(
-              [...getDefaultReactSlashMenuItems(editor), insertCode()],
-              query
-            )
-          }
+          getItems={getSlashMenuItems}
         />
       </BlockNoteView>
     </div>

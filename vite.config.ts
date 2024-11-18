@@ -21,8 +21,8 @@ export default defineConfig({
           {
             // Match API requests
             urlPattern:
-              /(https:\/\/branchynotes\.com\/api\/.*|http:\/\/localhost:8080\/api\/.*)/,
-            handler: "StaleWhileRevalidate",
+              /(https:\/\/api.branchynotes\.com\/api\/.*|http:\/\/localhost:8080\/api\/.*)/,
+            handler: "NetworkFirst",
             options: {
               cacheName: "api-cache",
               expiration: {
@@ -37,7 +37,7 @@ export default defineConfig({
           {
             // Match API requests
             urlPattern:
-              /(https:\/\/branchynotes\.com\/api\/users\/login|http:\/\/localhost:8080\/api\/users\/login)/,
+              /(https:\/\/api.branchynotes\.com\/api\/users\/login|http:\/\/localhost:8080\/api\/users\/login)/,
             method: "POST",
             handler: async ({ event }) => {
               const cache = await caches.open("custom-post-cache");

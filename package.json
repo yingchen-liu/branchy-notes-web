@@ -11,9 +11,10 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
-    "@blocknote/core": "^0.13.4",
-    "@blocknote/mantine": "^0.13.4",
-    "@blocknote/react": "^0.13.4",
+    "@blocknote/core": "^0.19.1",
+    "@blocknote/mantine": "^0.19.1",
+    "@blocknote/react": "^0.19.1",
+    "@blocknote/xl-multi-column": "^0.19.1",
     "@defensestation/blocknote-code": "^1.0.4",
     "@stomp/stompjs": "^7.0.0",
     "@tanstack/react-query": "^5.35.5",

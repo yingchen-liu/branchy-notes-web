@@ -72,7 +72,7 @@ export default function TreeNodeEditorHeader({
             {!node.linkTo && (
               <>
                 <input
-                  className="tree__node_editor__title w-[20%] border rounded-md p-2 focus:outline-none focus:border-blue-400"
+                  className="font-extralight tree__node_editor__title w-[20%] border rounded-md p-2 focus:outline-none focus:border-blue-400"
                   placeholder={t("title")}
                   value={node.name}
                   onChange={(event) => {
@@ -93,7 +93,7 @@ export default function TreeNodeEditorHeader({
                 />
                 {!node.isBelow && (
                   <input
-                    className="tree__node_editor__subtitle w-[15%] border rounded-md p-2 focus:outline-none focus:border-blue-400"
+                    className="font-extralight tree__node_editor__subtitle w-[15%] border rounded-md p-2 focus:outline-none focus:border-blue-400"
                     placeholder={t("subtitle")}
                     value={node.subtitle ? node.subtitle : ""}
                     onChange={(event) => {
@@ -108,7 +108,7 @@ export default function TreeNodeEditorHeader({
                 )}
                 {!node.isBelow && (
                   <input
-                    className="tree__node_editor__subtitle w-[10%] border rounded-md p-2 focus:outline-none focus:border-blue-400"
+                    className="font-extralight tree__node_editor__subtitle w-[10%] border rounded-md p-2 focus:outline-none focus:border-blue-400"
                     placeholder={t("badge")}
                     value={node.badge ? node.badge : ""}
                     onChange={(event) => {
@@ -123,7 +123,7 @@ export default function TreeNodeEditorHeader({
                 )}
                 {!node.isBelow && (
                   <select
-                    className="tree__node_editor__subtitle w-15 p-1 outline-none border rounded-md"
+                    className="font-extralight tree__node_editor__subtitle w-15 p-2 appearance-none outline-none border rounded-md"
                     value={node.color || ""}
                     onChange={(event) => {
                       const newNode = {
