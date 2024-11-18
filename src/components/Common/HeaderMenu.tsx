@@ -187,7 +187,7 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({ activeItem, title }) => {
             {activeItem === "my-tree-notes" && user && user.sub !== userId && (
               <>
                 <ul>
-                  <Link href={`/tree-notes/${user.sub}`}>
+                  <Link href={`/u/${user.sub}`}>
                     {t("myTreeNotes")}
                   </Link>
                 </ul>
