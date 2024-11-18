@@ -3,10 +3,7 @@ import { useContext } from "react";
 import { State, TreeItem, TreeItemPlaceholder } from "../../types/skillTree";
 import { SkillTreeContext } from "../../contexts/SkillTreeContext";
 import { TreeLeafDragProps } from "./DragAndDrop/types";
-import {
-  DummyTreeLeafDropArea,
-  TreeLeafDropArea,
-} from "./DragAndDrop/TreeLeafDropArea";
+import { TreeLeafDropArea } from "./DragAndDrop/TreeLeafDropArea";
 import { useAuth0 } from "@auth0/auth0-react";
 import LoadingSpinner from "../Common/Loader";
 import { useParams } from "react-router-dom";
@@ -288,16 +285,10 @@ function TreeLeaf(props: TreeLeafProps) {
       >
         {!node.isDeleting ? (
           <>
-            {!state.isEditorFocused ? (
-              <TreeLeafDropArea
-                props={{ parent: props.parent, data: node, position: "BEFORE" }}
-              />
-            ) : (
-              <DummyTreeLeafDropArea
-                props={{ parent: props.parent, data: node, position: "BEFORE" }}
-              />
-            )}
-            {!node.linkTo && !state.isEditorFocused ? (
+            <TreeLeafDropArea
+              props={{ parent: props.parent, data: node, position: "BEFORE" }}
+            />
+            {!node.linkTo ? (
               <TreeLeafDropArea
                 props={{ parent: props.parent, data: node, position: "CHILD" }}
               >
@@ -306,15 +297,9 @@ function TreeLeaf(props: TreeLeafProps) {
             ) : (
               <>{populateTreeLeafCard(node, props, state)}</>
             )}
-            {!state.isEditorFocused ? (
-              <TreeLeafDropArea
-                props={{ parent: props.parent, data: node, position: "AFTER" }}
-              />
-            ) : (
-              <DummyTreeLeafDropArea
-                props={{ parent: props.parent, data: node, position: "AFTER" }}
-              />
-            )}
+            <TreeLeafDropArea
+              props={{ parent: props.parent, data: node, position: "AFTER" }}
+            />
           </>
         ) : (
           populateTreeLeafCard(node, props, state)

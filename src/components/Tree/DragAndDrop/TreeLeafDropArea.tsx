@@ -30,20 +30,6 @@ function isDescendant(
   );
 }
 
-export function DummyTreeLeafDropArea({
-  props,
-  children,
-}: {
-  props: TreeLeafDropProps;
-  children?: any;
-}) {
-  return <div
-  className={`tree__leaf__drop_area tree__leaf__drop_area__${props.position.toLowerCase()}`}
->
-  {children && children}
-</div>
-}
-
 export function TreeLeafDropArea({
   props,
   children,

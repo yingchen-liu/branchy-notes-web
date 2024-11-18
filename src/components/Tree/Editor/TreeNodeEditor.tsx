@@ -28,7 +28,7 @@ export default function TreeNodeEditor() {
   if (!context) {
     throw new Error("TreeNodeEditor must be used within a SkillTreeContext");
   }
-  const { state, dispatch } = context;
+  const { state } = context;
 
   const [isFullscreen, setFullscreen] = useState(false);
 
@@ -76,25 +76,8 @@ export default function TreeNodeEditor() {
     });
   }, [state.selectedNodeId, dictionary]);
 
-  function handleFocus(): void {
-    dispatch({
-      type: "editor/focus",
-      isEditorFocused: true,
-    });
-  }
-
-  function handleBlur(): void {
-    dispatch({
-      type: "editor/focus",
-      isEditorFocused: false,
-    });
-  }
-
   return (
     <div
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-      tabIndex={0}
       className={`ui segments tree__node_editor__container${
         isFullscreen ? " tree__node_editor__container--fullscreen" : ""
       }`}
