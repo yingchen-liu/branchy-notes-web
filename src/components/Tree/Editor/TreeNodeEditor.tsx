@@ -1,5 +1,5 @@
 import "./TreeNodeEditor.css";
-import { useContext, useEffect, useMemo, useRef, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import "@blocknote/core/fonts/inter.css";
 import "@blocknote/mantine/style.css";
 import { SkillTreeContext } from "../../../contexts/SkillTreeContext";
