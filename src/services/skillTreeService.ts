@@ -6,7 +6,7 @@ import { createHeader, getToken } from "./services";
 import { debounce } from "lodash";
 import { Mutex } from "async-mutex";
 
-type OperationType =
+export type OperationType =
   | "createChildNode"
   | "createNodeAfter"
   | "createNodeBefore"
@@ -74,7 +74,7 @@ export const updateOperationId = (id: number) => {
 
 const STORAGE_KEY = "requestQueueData";
 
-const mutex = new Mutex();
+export const mutex = new Mutex();
 
 // Load queue from localStorage
 export const loadQueueFromStorage = () => {
@@ -83,7 +83,7 @@ export const loadQueueFromStorage = () => {
 };
 
 // Save the queue to localStorage
-const saveQueueToStorage = (requestQueue: any[]) => {
+export const saveQueueToStorage = (requestQueue: any[]) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify({ requestQueue }));
 };
 
@@ -168,15 +168,9 @@ const processQueue = async () => {
 
     const axiosError = error as AxiosError;
     if (axiosError.response) {
-      if (operation.retries + 1 >= 3) {
-        const { requestQueue: latestRequestQueue } = loadQueueFromStorage();
-        latestRequestQueue.shift();
-        saveQueueToStorage(latestRequestQueue);
-      } else {
-        const { requestQueue: latestRequestQueue } = loadQueueFromStorage();
-        latestRequestQueue[0].retries = operation.retries + 1;
-        saveQueueToStorage(latestRequestQueue);
-      }
+      const { requestQueue: latestRequestQueue } = loadQueueFromStorage();
+      latestRequestQueue[0].retries = operation.retries + 1;
+      saveQueueToStorage(latestRequestQueue);
     }
 
     // Wait 10s and retry

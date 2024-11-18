@@ -127,7 +127,7 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({ activeItem, title }) => {
       if (isOffline) {
         setSyncState("offline");
       } else if (requestQueue.length > 0) {
-        if (requestQueue[0].retries > 0) {
+        if (requestQueue[0].retries > 3) {
           setSyncState("error");
         } else {
           setSyncState("syncing");
@@ -146,12 +146,6 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({ activeItem, title }) => {
     // Clear interval on component unmount
     return () => clearInterval(intervalId);
   }, []);
-
-  useEffect(() => {
-    if (syncState === "error") {
-      alert("Error encountered while attempting to sync data with the server.");
-    }
-  }, [syncState]);
 
   function handleItemClick(name: string) {
     if (name.startsWith("#")) {

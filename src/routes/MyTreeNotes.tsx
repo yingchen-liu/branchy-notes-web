@@ -28,7 +28,11 @@ import OnBoarding from "../components/Tree/OnBoarding";
 import {
   fetchNodeChildren,
   fetchRootNode,
+  loadQueueFromStorage,
+  mutex,
+  OperationType,
   queueOperation,
+  saveQueueToStorage,
 } from "../services/skillTreeService";
 import { Button } from "../components/Index/Section";
 import LoadingSpinner from "../components/Common/Loader";
@@ -195,8 +199,108 @@ export default function MyTreeNotes() {
     init(); // Retry fetching data
   };
 
+  const [syncState, setSyncState] = useState("complete");
+
+  useEffect(() => {
+    // Function to fetch data from localStorage
+    const fetchRequestQueue = () => {
+      const { requestQueue } = loadQueueFromStorage();
+      const isOffline = localStorage.getItem("isOffline") === "true";
+
+      if (isOffline) {
+        setSyncState("offline");
+      } else if (requestQueue.length > 0) {
+        if (requestQueue[0].retries >= 3) {
+          setSyncState("error");
+        } else {
+          setSyncState("syncing");
+        }
+      } else {
+        setSyncState("complete");
+      }
+    };
+
+    // Initial fetch
+    fetchRequestQueue();
+
+    // Set an interval to fetch data every 1s
+    const intervalId = setInterval(fetchRequestQueue, 1000);
+
+    // Clear interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const [syncErrorModal, setSyncErrorModal] = useState<{
+    nodeName: string;
+    type: OperationType;
+  } | null>(null);
+
+  useEffect(() => {
+    if (syncState === "error") {
+      const item = loadQueueFromStorage().requestQueue[0];
+      setSyncErrorModal({
+        nodeName: item.params.node.name,
+        type: item.operationType,
+      });
+    } else {
+      setSyncErrorModal(null);
+    }
+  }, [syncState]);
+
+  const handleRetrySync = async () => {
+    await mutex.runExclusive(async () => {
+      const { requestQueue } = loadQueueFromStorage();
+      requestQueue[0].retries = 0;
+      saveQueueToStorage(requestQueue);
+    });
+    setSyncErrorModal(null);
+  };
+
+  const handleSkipSync = async () => {
+    await mutex.runExclusive(async () => {
+      const { requestQueue } = loadQueueFromStorage();
+      requestQueue.shift();
+      saveQueueToStorage(requestQueue);
+    });
+    setSyncErrorModal(null);
+  };
+
   return (
     <>
+      {syncErrorModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-md text-center">
+            <h2 className="text-xl font-bold mb-4 text-gray-800">
+              {t("syncErrorTitle")}
+            </h2>
+            <p className="text-gray-600 mb-6">
+              {t("failedTo")}
+              {syncErrorModal.type.startsWith("create")
+                ? t("create")
+                : syncErrorModal.type === "moveNode"
+                ? t("move")
+                : syncErrorModal.type === "updateNode"
+                ? t("edit")
+                : syncErrorModal.type === "deleteNode"
+                ? t("delete")
+                : t("modify")}{" "}
+              <b>{syncErrorModal.nodeName}</b>.{t("syncErrorDescription")}
+            </p>
+            <div className="flex justify-center space-x-4">
+              <Button reverse={true} onClick={handleRetrySync}>
+                {t("retry")}
+              </Button>
+              <Button
+                reverse={true}
+                className="border-red-500 text-red-500 hover:border-red-700 hover:text-red-700"
+                onClick={handleSkipSync}
+              >
+                {t("skip")}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
       <div className={`container--full-screen lang-${i18n.language}`}>
         <HeaderMenu
           activeItem="my-tree-notes"
