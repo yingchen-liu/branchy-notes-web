@@ -8,13 +8,14 @@ import {
 import { t } from "i18next";
 
 const initialState: State = {
-  title: t('myTreeNotesTitle'),
+  title: t("myTreeNotesTitle"),
   ownerUser: null,
   selectedNodeId: null,
   selectedNode: null,
   selectedNodeParent: null,
   linkOnDrop: false,
-  preview: false
+  preview: false,
+  isEditorFocused: false,
 };
 
 export type SkillTreeContextType = {
@@ -33,21 +34,28 @@ export type SkillTreeContextType = {
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
+    case "editor/focus":
+      return {
+        ...state,
+        isEditorFocused: action.isEditorFocused
+      }
     case "title/update":
       return {
         ...state,
-        title: action.title
-      }
+        title: action.title,
+      };
     case "ownerUser/update":
       return {
         ...state,
-        ownerUser: action.ownerUser
-      }
+        ownerUser: action.ownerUser,
+      };
     case "node/select":
       return {
         ...state,
         selectedNodeParent: action.parent,
-        selectedNodeId: action.node.uuid + (action.linkFromUUID ? `-link-from-${action.linkFromUUID}` : ''),
+        selectedNodeId:
+          action.node.uuid +
+          (action.linkFromUUID ? `-link-from-${action.linkFromUUID}` : ""),
         selectedNode: action.node,
       };
     case "node/update":

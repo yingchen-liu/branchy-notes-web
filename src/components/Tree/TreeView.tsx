@@ -379,26 +379,48 @@ export default function TreeView() {
               </div>
             )}
           <Tree>
-            <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
-              <TreeLeafDragLayer />
-              <TreeRoot />
-              <TreeChildren>
-                {populateChildren(
-                  data,
-                  data[getRootUUID()!] as TreeItem,
-                  (data[getRootUUID()!] as TreeItem).children.map(
-                    (childUUID) => data[childUUID]
-                  ),
-                  state.selectedNode,
-                  null,
-                  handleClick,
-                  handleAddChild,
-                  handleAddAfter,
-                  handleLoadMore,
-                  handleCollapse
-                )}
-              </TreeChildren>
-            </DndProvider>
+            {!state.isEditorFocused ? (
+              <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
+                <TreeLeafDragLayer />
+                <TreeRoot />
+                <TreeChildren>
+                  {populateChildren(
+                    data,
+                    data[getRootUUID()!] as TreeItem,
+                    (data[getRootUUID()!] as TreeItem).children.map(
+                      (childUUID) => data[childUUID]
+                    ),
+                    state.selectedNode,
+                    null,
+                    handleClick,
+                    handleAddChild,
+                    handleAddAfter,
+                    handleLoadMore,
+                    handleCollapse
+                  )}
+                </TreeChildren>
+              </DndProvider>
+            ) : (
+              <>
+                <TreeRoot />
+                <TreeChildren>
+                  {populateChildren(
+                    data,
+                    data[getRootUUID()!] as TreeItem,
+                    (data[getRootUUID()!] as TreeItem).children.map(
+                      (childUUID) => data[childUUID]
+                    ),
+                    state.selectedNode,
+                    null,
+                    handleClick,
+                    handleAddChild,
+                    handleAddAfter,
+                    handleLoadMore,
+                    handleCollapse
+                  )}
+                </TreeChildren>
+              </>
+            )}
           </Tree>
 
           <div className="footer">

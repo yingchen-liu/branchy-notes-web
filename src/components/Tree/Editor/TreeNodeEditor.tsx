@@ -1,5 +1,5 @@
 import "./TreeNodeEditor.css";
-import { useContext, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import "@blocknote/core/fonts/inter.css";
 import "@blocknote/mantine/style.css";
 import { SkillTreeContext } from "../../../contexts/SkillTreeContext";
@@ -28,7 +28,7 @@ export default function TreeNodeEditor() {
   if (!context) {
     throw new Error("TreeNodeEditor must be used within a SkillTreeContext");
   }
-  const { state } = context;
+  const { state, dispatch } = context;
 
   const [isFullscreen, setFullscreen] = useState(false);
 
@@ -76,8 +76,43 @@ export default function TreeNodeEditor() {
     });
   }, [state.selectedNodeId, dictionary]);
 
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  const checkFocus = () => {
+    const container = containerRef.current;
+    if (container) {
+      // Check if any child of the container is focused
+      const focusedElement = document.activeElement;
+      dispatch({
+        type: "editor/focus",
+        isEditorFocused: container.contains(focusedElement),
+      });
+    }
+  };
+
+  useEffect(() => {
+    const handleFocus = () => checkFocus();
+    const handleBlur = () => checkFocus();
+
+    const container = containerRef.current;
+    if (container) {
+      // Add event listeners to check for focus changes
+      container.addEventListener("focusin", handleFocus, true); // focusin bubbles
+      container.addEventListener("focusout", handleBlur, true); // focusout bubbles
+    }
+
+    // Cleanup listeners when the component is unmounted
+    return () => {
+      if (container) {
+        container.removeEventListener("focusin", handleFocus, true);
+        container.removeEventListener("focusout", handleBlur, true);
+      }
+    };
+  }, []);
+
   return (
     <div
+      ref={containerRef}
       className={`ui segments tree__node_editor__container${
         isFullscreen ? " tree__node_editor__container--fullscreen" : ""
       }`}
