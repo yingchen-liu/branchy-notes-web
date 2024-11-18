@@ -7,15 +7,20 @@ import TreeNodeEditorHeader from "./TreeNodeEditorHeader";
 import TreeNodeEditorMain from "./TreeNodeEditorMain";
 import { useAuth0 } from "@auth0/auth0-react";
 import { CodeBlock } from "@defensestation/blocknote-code";
-import { BlockNoteSchema, defaultBlockSpecs, BlockNoteEditor, locales } from "@blocknote/core";
+import {
+  BlockNoteSchema,
+  defaultBlockSpecs,
+  BlockNoteEditor,
+  locales,
+} from "@blocknote/core";
 import { NodeEditorAlert } from "./NodeEditorAlert";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import {
-  multiColumnDropCursor,
-  locales as multiColumnLocales,
-  withMultiColumn,
-} from "@blocknote/xl-multi-column";
+// import {
+//   multiColumnDropCursor,
+//   locales as multiColumnLocales,
+//   withMultiColumn,
+// } from "@blocknote/xl-multi-column";
 
 export default function TreeNodeEditor() {
   const context = useContext(SkillTreeContext);
@@ -36,13 +41,13 @@ export default function TreeNodeEditor() {
   const node = state.selectedNode;
 
   const { i18n } = useTranslation(); // Get current language from i18n
-  const locale = i18n.language.replace(/-.*/g, '') as keyof typeof locales
+  const locale = i18n.language.replace(/-.*/g, "") as keyof typeof locales;
   const dictionary = locales[locale]; // Dynamically load dictionary based on language
-  const multiColumnDictionary = multiColumnLocales[locale]
+  // const multiColumnDictionary = multiColumnLocales[locale]
 
   // Use useMemo to ensure editor is created only when necessary
   const editor = useMemo(() => {
-    const schema = withMultiColumn(BlockNoteSchema.create({
+    const schema = /*withMultiColumn(*/ BlockNoteSchema.create({
       blockSpecs: {
         ...defaultBlockSpecs,
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -50,7 +55,7 @@ export default function TreeNodeEditor() {
         procode: CodeBlock,
         alert: NodeEditorAlert,
       },
-    }));
+    }); //);
 
     let content: any[] | null = null;
     if (node.content !== undefined) {
@@ -62,12 +67,12 @@ export default function TreeNodeEditor() {
       schema,
       // The default drop cursor only shows up above and below blocks - we replace
       // it with the multi-column one that also shows up on the sides of blocks.
-      dropCursor: multiColumnDropCursor,
+      // dropCursor: multiColumnDropCursor,
       initialContent: content as any,
       dictionary: {
         ...(dictionary as any),
-        multi_column: multiColumnDictionary
-      }
+        // multi_column: multiColumnDictionary,
+      },
     });
   }, [state.selectedNodeId, dictionary]);
 

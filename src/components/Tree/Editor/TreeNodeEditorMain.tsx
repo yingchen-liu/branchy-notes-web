@@ -1,17 +1,10 @@
 import {
-  BlockNoteEditor,
-  combineByGroup,
-  filterSuggestionItems,
+  BlockNoteEditor
 } from "@blocknote/core";
 import { BlockNoteView } from "@blocknote/mantine";
-import {
-  getDefaultReactSlashMenuItems,
-  SuggestionMenuController,
-} from "@blocknote/react";
 import { SkillTreeContext } from "../../../contexts/SkillTreeContext";
-import { useContext, useMemo } from "react";
+import { useContext } from "react";
 import { TreeItem } from "../../../types/skillTree";
-import { getMultiColumnSlashMenuItems } from "@blocknote/xl-multi-column";
 
 export default function TreeNodeEditorMain({
   editor,
@@ -29,16 +22,16 @@ export default function TreeNodeEditorMain({
   }
   const { treeData, dispatch } = context;
 
-  const getSlashMenuItems = useMemo(() => {
-    return async (query: string) =>
-      filterSuggestionItems(
-        combineByGroup(
-          getDefaultReactSlashMenuItems(editor),
-          getMultiColumnSlashMenuItems(editor)
-        ),
-        query
-      );
-  }, [editor]);
+  // const getSlashMenuItems = useMemo(() => {
+  //   return async (query: string) =>
+  //     filterSuggestionItems(
+  //       combineByGroup(
+  //         getDefaultReactSlashMenuItems(editor),
+  //         getMultiColumnSlashMenuItems(editor)
+  //       ),
+  //       query
+  //     );
+  // }, [editor]);
 
   return (
     <div className="ui segment tree__node_editor__rich_text_editor__container">
@@ -46,7 +39,7 @@ export default function TreeNodeEditorMain({
         editable={editable}
         editor={editor}
         // formattingToolbar={false}
-        slashMenu={false}
+        // slashMenu={false}
         theme="light"
         onChange={() => {
           const newNode = {
@@ -56,12 +49,12 @@ export default function TreeNodeEditorMain({
           dispatch({ type: "node/update", node: newNode });
           treeData.updateNode(newNode);
         }}
-      >
-        <SuggestionMenuController
+      />
+      {/* <SuggestionMenuController
           triggerCharacter={"/"}
           getItems={getSlashMenuItems}
-        />
-      </BlockNoteView>
+        /> */}
+      {/* </BlockNoteView> */}
     </div>
   );
 }
