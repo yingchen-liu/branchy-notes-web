@@ -1,10 +1,10 @@
-import {
-  BlockNoteEditor
-} from "@blocknote/core";
+import { BlockNoteEditor } from "@blocknote/core";
 import { BlockNoteView } from "@blocknote/mantine";
 import { SkillTreeContext } from "../../../contexts/SkillTreeContext";
 import { useContext } from "react";
 import { TreeItem } from "../../../types/skillTree";
+import { BasicTextStyleButton, BlockTypeSelect, BlockTypeSelectItem, blockTypeSelectItems, ColorStyleButton, CreateLinkButton, FormattingToolbar, FormattingToolbarController, NestBlockButton, TextAlignButton, UnnestBlockButton } from "@blocknote/react";
+import { RiAlertFill } from "react-icons/ri";
 
 export default function TreeNodeEditorMain({
   editor,
@@ -38,7 +38,7 @@ export default function TreeNodeEditorMain({
       <BlockNoteView
         editable={editable}
         editor={editor}
-        // formattingToolbar={false}
+        formattingToolbar={false}
         // slashMenu={false}
         theme="light"
         onChange={() => {
@@ -49,12 +49,72 @@ export default function TreeNodeEditorMain({
           dispatch({ type: "node/update", node: newNode });
           treeData.updateNode(newNode);
         }}
-      />
-      {/* <SuggestionMenuController
+      >
+        {/* <SuggestionMenuController
           triggerCharacter={"/"}
           getItems={getSlashMenuItems}
         /> */}
-      {/* </BlockNoteView> */}
+        <FormattingToolbarController
+          formattingToolbar={() => (
+            <FormattingToolbar>
+              <BlockTypeSelect
+                items={[
+                  ...blockTypeSelectItems(editor.dictionary),
+                  {
+                    name: "Alert",
+                    type: "alert",
+                    icon: RiAlertFill,
+                    isSelected: (block) => block.type === "alert",
+                  } satisfies BlockTypeSelectItem,
+                ]}
+                key={"blockTypeSelect"}
+              />
+
+              <BasicTextStyleButton
+                basicTextStyle={"bold"}
+                key={"boldStyleButton"}
+              />
+              <BasicTextStyleButton
+                basicTextStyle={"italic"}
+                key={"italicStyleButton"}
+              />
+              <BasicTextStyleButton
+                basicTextStyle={"underline"}
+                key={"underlineStyleButton"}
+              />
+              <BasicTextStyleButton
+                basicTextStyle={"strike"}
+                key={"strikeStyleButton"}
+              />
+              {/* Extra button to toggle code styles */}
+              <BasicTextStyleButton
+                key={"codeStyleButton"}
+                basicTextStyle={"code"}
+              />
+
+              <TextAlignButton
+                textAlignment={"left"}
+                key={"textAlignLeftButton"}
+              />
+              <TextAlignButton
+                textAlignment={"center"}
+                key={"textAlignCenterButton"}
+              />
+              <TextAlignButton
+                textAlignment={"right"}
+                key={"textAlignRightButton"}
+              />
+
+              <ColorStyleButton key={"colorStyleButton"} />
+
+              <NestBlockButton key={"nestBlockButton"} />
+              <UnnestBlockButton key={"unnestBlockButton"} />
+
+              <CreateLinkButton key={"createLinkButton"} />
+            </FormattingToolbar>
+          )}
+        />
+      </BlockNoteView>
     </div>
   );
 }
