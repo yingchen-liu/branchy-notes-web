@@ -54,11 +54,7 @@ function LoginButton() {
         (isAuthenticated ? (
           <Link
             onClick={() => {
-              saveRedirectPath(
-                window.location.pathname.startsWith("/tree-notes")
-                  ? "/tree-notes"
-                  : window.location.pathname
-              );
+              saveRedirectPath('/');
 
               logout({
                 logoutParams: { returnTo: `${window.location.origin}/logout` },
