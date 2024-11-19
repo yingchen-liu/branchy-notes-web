@@ -338,6 +338,7 @@ export default function MyTreeNotes() {
                     );
 
                     setShowOnBoardingModal(false);
+                    setIniting(false);
                     await fetchTree();
                   } catch (e) {
                     setShowOnBoardingModal(true);
