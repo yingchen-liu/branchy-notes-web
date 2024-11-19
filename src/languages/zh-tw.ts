@@ -6,6 +6,7 @@ export default {
   loading: "載入中...",
   initing: "初始化中...",
   loadingTree: "正在載入筆記...",
+  loadingTreeLine2: '這可能需要一些時間，感謝您的耐心等待。',
   failedToLoad: "載入失敗，請重試。",
   retry: "重試",
   preview: "預覽",

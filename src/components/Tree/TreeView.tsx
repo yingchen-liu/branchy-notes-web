@@ -367,6 +367,7 @@ export default function TreeView() {
       {isPending && (
         <div className="mt-40">
           <LoadingSpinner size="lg" dark={false} message={t("loadingTree")} />
+          <div className="text-center text-gray-300 mt-5">{t("loadingTreeLine2")}</div>
         </div>
       )}
       {isSuccess && data && getRootUUID() && (
