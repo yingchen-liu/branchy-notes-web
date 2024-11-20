@@ -19,15 +19,7 @@
       padding: 0 3px 0 3px;
     }
 
-    [data-content-type="codeBlock"] {
-      select {
-        top: 5px;
-        left: 15px;
-      }
-    }
-
     pre {
-      padding: 20px 12px 12px 12px;
       code {
         background: none;
       }
