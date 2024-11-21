@@ -269,7 +269,7 @@ function TreeLeaf(props: TreeLeafProps) {
   const { state, selectedLeafRef, handleLoadMore } = context;
   const queryClient = useQueryClient();
 
-  if ("name" in props.data) {
+  if ("name" in props.data || "linkTo" in props.data) {
     const node = props.data as TreeItem;
 
     return (

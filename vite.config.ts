@@ -34,45 +34,45 @@ export default defineConfig({
               },
             },
           },
-          {
-            // Match API requests
-            urlPattern:
-              /(https:\/\/api.branchynotes\.com\/api\/users\/login|http:\/\/localhost:8080\/api\/users\/login)/,
-            method: "POST",
-            handler: async ({ event }) => {
-              const cache = await caches.open("custom-post-cache");
-              const cacheKey = `${event.request.url}-${JSON.stringify(
-                event.request.clone()
-              )}`;
+          // {
+          //   // Match API requests
+          //   urlPattern:
+          //     /(https:\/\/api.branchynotes\.com\/api\/users\/login|http:\/\/localhost:8080\/api\/users\/login)/,
+          //   method: "POST",
+          //   handler: async ({ event }) => {
+          //     const cache = await caches.open("custom-post-cache");
+          //     const cacheKey = `${event.request.url}-${JSON.stringify(
+          //       event.request.clone()
+          //     )}`;
 
-              // Try to fetch from the network
-              try {
-                const networkResponse = await fetch(event.request.clone());
-                if (networkResponse.ok) {
-                  // Cache the response
-                  cache.put(cacheKey, networkResponse.clone());
-                }
-                return networkResponse;
-              } catch (err) {
-                // Fallback to cache
-                const cachedResponse = await cache.match(cacheKey);
-                if (cachedResponse) {
-                  return cachedResponse;
-                }
-                throw err; // Let the error propagate
-              }
-            },
-            options: {
-              cacheName: "api-cache",
-              expiration: {
-                maxEntries: 100, // Limit number of cached requests
-                maxAgeSeconds: 60 * 60 * 24 * 7, // Cache for 7 days
-              },
-              cacheableResponse: {
-                statuses: [0, 200], // Cache valid responses (200) and opaque responses (0)
-              },
-            },
-          },
+          //     // Try to fetch from the network
+          //     try {
+          //       const networkResponse = await fetch(event.request.clone());
+          //       if (networkResponse.ok) {
+          //         // Cache the response
+          //         cache.put(cacheKey, networkResponse.clone());
+          //       }
+          //       return networkResponse;
+          //     } catch (err) {
+          //       // Fallback to cache
+          //       const cachedResponse = await cache.match(cacheKey);
+          //       if (cachedResponse) {
+          //         return cachedResponse;
+          //       }
+          //       throw err; // Let the error propagate
+          //     }
+          //   },
+          //   options: {
+          //     cacheName: "api-cache",
+          //     expiration: {
+          //       maxEntries: 100, // Limit number of cached requests
+          //       maxAgeSeconds: 60 * 60 * 24 * 7, // Cache for 7 days
+          //     },
+          //     cacheableResponse: {
+          //       statuses: [0, 200], // Cache valid responses (200) and opaque responses (0)
+          //     },
+          //   },
+          // },
         ],
       },
       manifest: {

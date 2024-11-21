@@ -17,7 +17,7 @@ const LanguageSwitcher = () => {
         onClick={() => setIsOpen(!isOpen)}
         className="cursor-pointer inline-block font-sfmono px-1 border border-white rounded-md text-white hover:text-blue-200 hover:border-blue-200 focus:outline-none"
       >
-        {i18n.language.replace(/en.*/g, "EN").replace("zh-CN", "简").replace("zh-TW", "繁")}
+        {i18n.language.replace(/en.*/g, "EN").replace("zh-CN", "简").replace("zh-TW", "繁").replace("zh-HK", "繁")}
       </button>
 
       {/* Dropdown Menu */}

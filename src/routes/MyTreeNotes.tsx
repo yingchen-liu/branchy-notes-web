@@ -239,7 +239,7 @@ export default function MyTreeNotes() {
     if (syncState === "error") {
       const item = loadQueueFromStorage().requestQueue[0];
       setSyncErrorModal({
-        nodeName: item.params.node.name,
+        nodeName: item.params.node?.name || "Unknwon Notes",
         type: item.operationType,
       });
     } else {
