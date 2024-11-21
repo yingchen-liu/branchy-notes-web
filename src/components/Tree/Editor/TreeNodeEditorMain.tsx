@@ -3,7 +3,7 @@ import { BlockNoteView } from "@blocknote/mantine";
 import { SkillTreeContext } from "../../../contexts/SkillTreeContext";
 import { useContext, useMemo } from "react";
 import { TreeItem } from "../../../types/skillTree";
-import { BasicTextStyleButton, BlockTypeSelect, BlockTypeSelectItem, blockTypeSelectItems, ColorStyleButton, CreateLinkButton, DefaultReactSuggestionItem, FormattingToolbar, FormattingToolbarController, getDefaultReactSlashMenuItems, NestBlockButton, SuggestionMenuController, TextAlignButton, UnnestBlockButton } from "@blocknote/react";
+import { BasicTextStyleButton, BlockTypeSelect, BlockTypeSelectItem, blockTypeSelectItems, ColorStyleButton, CreateLinkButton, FormattingToolbar, FormattingToolbarController, getDefaultReactSlashMenuItems, NestBlockButton, SuggestionMenuController, TextAlignButton, UnnestBlockButton } from "@blocknote/react";
 import { RiAlertFill } from "react-icons/ri";
 import { insertCode } from "@defensestation/blocknote-code";
 
