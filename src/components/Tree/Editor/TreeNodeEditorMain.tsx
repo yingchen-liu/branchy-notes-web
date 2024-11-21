@@ -1,10 +1,11 @@
-import { BlockNoteEditor } from "@blocknote/core";
+import { BlockNoteEditor, combineByGroup, filterSuggestionItems } from "@blocknote/core";
 import { BlockNoteView } from "@blocknote/mantine";
 import { SkillTreeContext } from "../../../contexts/SkillTreeContext";
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { TreeItem } from "../../../types/skillTree";
-import { BasicTextStyleButton, BlockTypeSelect, BlockTypeSelectItem, blockTypeSelectItems, ColorStyleButton, CreateLinkButton, FormattingToolbar, FormattingToolbarController, NestBlockButton, TextAlignButton, UnnestBlockButton } from "@blocknote/react";
+import { BasicTextStyleButton, BlockTypeSelect, BlockTypeSelectItem, blockTypeSelectItems, ColorStyleButton, CreateLinkButton, FormattingToolbar, FormattingToolbarController, getDefaultReactSlashMenuItems, NestBlockButton, SuggestionMenuController, TextAlignButton, UnnestBlockButton } from "@blocknote/react";
 import { RiAlertFill } from "react-icons/ri";
+import { insertCode } from "@defensestation/blocknote-code";
 
 export default function TreeNodeEditorMain({
   editor,
@@ -22,16 +23,16 @@ export default function TreeNodeEditorMain({
   }
   const { treeData, dispatch } = context;
 
-  // const getSlashMenuItems = useMemo(() => {
-  //   return async (query: string) =>
-  //     filterSuggestionItems(
-  //       combineByGroup(
-  //         getDefaultReactSlashMenuItems(editor),
-  //         getMultiColumnSlashMenuItems(editor)
-  //       ),
-  //       query
-  //     );
-  // }, [editor]);
+  const getSlashMenuItems = useMemo(() => {
+    return async (query: string) =>
+      filterSuggestionItems(
+        combineByGroup(
+          getDefaultReactSlashMenuItems(editor),
+          insertCode() as any
+        ),
+        query
+      );
+  }, [editor]);
 
   return (
     <div className="ui segment tree__node_editor__rich_text_editor__container">
@@ -39,7 +40,7 @@ export default function TreeNodeEditorMain({
         editable={editable}
         editor={editor}
         formattingToolbar={false}
-        // slashMenu={false}
+        slashMenu={false}
         theme="light"
         onChange={() => {
           const newNode = {
@@ -50,10 +51,10 @@ export default function TreeNodeEditorMain({
           treeData.updateNode(newNode);
         }}
       >
-        {/* <SuggestionMenuController
+        <SuggestionMenuController
           triggerCharacter={"/"}
           getItems={getSlashMenuItems}
-        /> */}
+        />
         <FormattingToolbarController
           formattingToolbar={() => (
             <FormattingToolbar>
