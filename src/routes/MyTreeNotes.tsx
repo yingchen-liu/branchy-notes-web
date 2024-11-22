@@ -18,7 +18,7 @@ import TreeView from "../components/Tree/TreeView";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import TreeBottomBar from "../components/Tree/Editor/TreeBottomBar";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { updateToken } from "../services/services";
 import { getUserById, login, updateUser } from "../services/userService";
@@ -39,17 +39,11 @@ import LoadingSpinner from "../components/Common/Loader";
 import HorizontalScroll from "../components/Layout/HorizontalScroll";
 
 export default function MyTreeNotes() {
-  const { userId } = useParams();
-  const navigate = useNavigate();
+  let { userId } = useParams();
 
-  useEffect(() => {
-    if (userId === "yingchen-liu") {
-      navigate(
-        "/u/google-oauth2%7C109648791259742005616",
-        { replace: true }
-      );
-    }
-  }, [userId, navigate]); // Dependency array ensures effect runs when userId or navigate changes
+  if (userId === "yingchen-liu") {
+    userId = "google-oauth2|109648791259742005616"
+  }
 
   const { user, isLoading, isAuthenticated, getAccessTokenSilently } =
     useAuth0();
