@@ -1,18 +1,69 @@
-.ui.segments.tree__node_editor__container {
-  margin: 0;
-  border-bottom: rgba(0,0,0,0.87);
+#branchynotes {
+  .ui.segments.tree__node_editor__container {
+    margin: 0;
+    border-bottom: rgba(0, 0, 0, 0.87);
 
-  .ui.segment.tree__node_editor__rich_text_editor__container {
-    padding: 10px 0 10px 0;
-    overflow: auto;
-    min-height: 200px;
-    max-height: 400px;
-    border-radius: 0;
+    .ui.segment.tree__node_editor__rich_text_editor__container {
+      padding: 10px 0 10px 0;
+      overflow: auto;
+      min-height: 200px;
+      max-height: 400px;
+      border-radius: 0;
 
-    .cm-editor {
-      height: auto;
+      .cm-editor {
+        height: auto;
+      }
     }
 
+    .tree__node_editor__top {
+      display: flex;
+
+      > * {
+        margin-right: 10px;
+      }
+      > *:last-child {
+        margin-right: 0;
+      }
+
+      .tree__node_editor__radio_group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .tree__node_editor__title {
+        flex-grow: 1;
+      }
+
+      .tree__node_editor__subtitle {
+        flex-grow: 2;
+      }
+    }
+
+    .tree__node_editor__related {
+      display: flex;
+      flex-direction: row;
+
+      .ui.card {
+        margin: 0 10px 0 0;
+
+        .content {
+          padding: 9px;
+        }
+      }
+    }
+  }
+
+  .ui.segments.tree__node_editor__container--fullscreen {
+    .ui.segment.tree__node_editor__rich_text_editor__container,
+    .ui.segment.tree__node_editor__rich_text__container {
+      min-height: calc(100vh - 100px);
+      max-height: none;
+    }
+  }
+
+  .bn-default-styles,
+  .bn-drag-preview {
+    font-family: InterVar;
     code {
       background: #e0e1e2;
       border-radius: 5px;
@@ -26,59 +77,19 @@
     }
 
     h1 {
-      font-size: 2.2rem;
+      font-size: 1.8rem;
+      font-weight: 900;
+      margin: 8px 0;
     }
 
     h2 {
-      font-size: 1.8rem;
+      font-size: 1.7rem;
+      font-weight: 800;
     }
 
     h3 {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
+      font-weight: 600;
     }
-  }
-
-  .tree__node_editor__top {
-    display: flex;
-
-    > * {
-      margin-right: 10px;
-    }
-    > *:last-child {
-      margin-right: 0;
-    }
-
-    .tree__node_editor__radio_group {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .tree__node_editor__title {
-      flex-grow: 1;
-    }
-
-    .tree__node_editor__subtitle {
-      flex-grow: 2;
-    }
-  }
-
-  .tree__node_editor__related {
-    display: flex;
-    flex-direction: row;
-
-    .ui.card {
-      margin: 0 10px 0 0 ;
-
-      .content {
-        padding: 9px;
-      }
-    }
-  }
-}
-
-.ui.segments.tree__node_editor__container--fullscreen {
-  .ui.segment.tree__node_editor__rich_text_editor__container, .ui.segment.tree__node_editor__rich_text__container {
-    min-height: calc(100vh - 100px);
-    max-height: none;
   }
 }
