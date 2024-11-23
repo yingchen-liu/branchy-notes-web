@@ -92,4 +92,12 @@
       font-weight: 600;
     }
   }
+
+  [data-content-type="table"] {
+    margin-bottom: -20px;
+  }
+
+  .tableWrapper {
+    padding-bottom: 10px;
+  }
 }

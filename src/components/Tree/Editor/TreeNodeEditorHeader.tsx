@@ -61,7 +61,8 @@ export default function TreeNodeEditorHeader({
 
   return (
     <>
-      <div className="ui segment flex tree__node_editor__top">
+      <div className="ui segment flex flex-wrap justify-center
+      gap-y-3 tree__node_editor__top">
         {editable ? (
           <>
             {node.linkTo && (
@@ -71,6 +72,7 @@ export default function TreeNodeEditorHeader({
             )}
             {!node.linkTo && (
               <>
+                {/* Title */}
                 <input
                   className="font-extralight tree__node_editor__title w-[20%] border rounded-md p-2 focus:outline-none focus:border-blue-400"
                   placeholder={t("title")}
@@ -91,6 +93,7 @@ export default function TreeNodeEditorHeader({
                     treeData.updateNode(newNode);
                   }}
                 />
+                {/* Subtitle */}
                 {!node.isBelow && (
                   <input
                     className="font-extralight tree__node_editor__subtitle w-[15%] border rounded-md p-2 focus:outline-none focus:border-blue-400"
@@ -106,6 +109,7 @@ export default function TreeNodeEditorHeader({
                     }}
                   />
                 )}
+                {/* Badge */}
                 {!node.isBelow && (
                   <input
                     className="font-extralight tree__node_editor__subtitle w-[10%] border rounded-md p-2 focus:outline-none focus:border-blue-400"
@@ -121,6 +125,7 @@ export default function TreeNodeEditorHeader({
                     }}
                   />
                 )}
+                {/* Color */}
                 {!node.isBelow && (
                   <select
                     className="font-extralight tree__node_editor__subtitle w-15 p-2 appearance-none outline-none border rounded-md"
@@ -151,6 +156,7 @@ export default function TreeNodeEditorHeader({
                 )}
               </>
             )}
+            {/* Tools */}
             {!node.linkTo && (
               <ToggleButtonGroup>
                 <ToggleSquareButton
