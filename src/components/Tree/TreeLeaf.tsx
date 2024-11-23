@@ -11,6 +11,7 @@ import { FaLink } from "react-icons/fa";
 import { FaNoteSticky } from "react-icons/fa6";
 import { useQueryClient } from "@tanstack/react-query";
 import { deleteNodeById } from "../../reducers/skillTreeUtils";
+import { t } from "i18next";
 
 export type TreeLeafProps = TreeLeafDragProps & {
   isActive: boolean;
@@ -153,7 +154,10 @@ function populateTreeLeafCard(
                 ) : (
                   ""
                 )}
-                {!node.linkTo && node.name}
+                {!node.linkTo &&
+                  (node.name || (
+                    <span className="text-red-700">{t("untitledNote")}</span>
+                  ))}
               </div>
               {node.subtitle && <div className="meta">{node.subtitle}</div>}
               {userId === user?.sub &&

@@ -5,7 +5,9 @@ import i18n from "../i18n";
 export function createTreeNotesTitle(node?: TreeItem, ownerUserInfo?: User) {
   return (
     (node
-      ? (node.linkTo ? `Link to ${node.linkTo.name}` : node.name) + " | "
+      ? (node.linkTo
+          ? `Link to ${node.linkTo.name}`
+          : node.name || t("untitledNote")) + " | "
       : "") +
     (ownerUserInfo
       ? `${

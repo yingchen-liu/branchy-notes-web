@@ -14,6 +14,7 @@ export default {
   myTreeNotesTitle: "BranchyNotes | 树枝记",
   sTreeNotesTitle: "的树枝记",
   title: "标题",
+  untitledNote: '未命名笔记',
   subtitle: "附标题",
   badge: "标签",
   delete: "删除",

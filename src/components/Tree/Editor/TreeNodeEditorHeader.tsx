@@ -258,7 +258,7 @@ export default function TreeNodeEditorHeader({
                 {t("linkTo")} {node.linkTo.name}
               </>
             )}
-            {node.name}
+            {node.name || t("untitledNote")}
           </div>
         )}
 

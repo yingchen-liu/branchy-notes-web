@@ -17,6 +17,7 @@ export default {
   cancel: 'Cancel',
   linkTo: 'Link To',
   title: 'Title',
+  untitledNote: 'Untitled Note',
   subtitle: 'Subtitle',
   badge: 'Badge',
   color: 'Color',
