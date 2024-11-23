@@ -66,7 +66,7 @@ export default function TreeNodeEditorHeader({
         {editable ? (
           <>
             {node.linkTo && (
-              <div className="text-xl w-[100%] font-bold pt-2">
+              <div className="text-xl flex-grow font-bold pt-2">
                 Link to {node.linkTo.name}
               </div>
             )}
@@ -252,7 +252,7 @@ export default function TreeNodeEditorHeader({
             )}
           </>
         ) : (
-          <div className="text-xl w-[100%] font-bold pt-2">
+          <div className="text-xl flex-grow font-bold pt-2">
             {node.linkTo && (
               <>
                 {t("linkTo")} {node.linkTo.name}
