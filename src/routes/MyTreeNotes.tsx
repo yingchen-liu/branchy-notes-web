@@ -42,7 +42,7 @@ export default function MyTreeNotes() {
   let { userId } = useParams();
 
   if (userId === "yingchen-liu") {
-    userId = "google-oauth2|109648791259742005616"
+    userId = "google-oauth2|109648791259742005616";
   }
 
   const { user, isLoading, isAuthenticated, getAccessTokenSilently } =
@@ -173,6 +173,12 @@ export default function MyTreeNotes() {
           });
         }
       );
+
+      Object.entries(result).forEach(([key, value]) => {
+        if (state.selectedNode?.uuid === key) {
+          dispatch({ type: "node/update", node: value });
+        }
+      });
     } catch (e) {
       queryClient.setQueryData(
         ["skill-tree"],
